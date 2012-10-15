@@ -29,13 +29,6 @@ func get(url string) []byte {
 var args []string
 
 func main() {
-	defer func() {
-		err := recover()
-		if err != nil {
-			fmt.Println(err)
-		}
-	}()
-
 	flag.Parse()
 	args = flag.Args()
 	if len(args) == 0 || len(args) > 1 {

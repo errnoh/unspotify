@@ -27,6 +27,10 @@ func feelinglucky(body []byte) *YoutubeLink {
 
 func (song *Song) youtubesearch() string {
 	search, _ := url.Parse("https://gdata.youtube.com/feeds/api/videos")
-	search.RawQuery = fmt.Sprintf("q=%s&max-results=1&v=2&prettyprint=true", url.QueryEscape(song.Artist+" - "+song.Title))
+	q := search.Query()
+	q.Set("max-results", "1")
+	q.Set("v", "2")
+	q.Set("q", (song.Artist + " - " + song.Title))
+	search.RawQuery = q.Encode()
 	return search.String()
 }
