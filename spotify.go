@@ -13,11 +13,14 @@ type Song struct {
 	link   *YoutubeLink
 }
 
-func (song *Song) String() string {
-	if song == nil || song.link == nil {
+func (song *Song) String() (s string) {
+	if song == nil || (*youtube && song.link == nil) {
 		return "No results"
 	}
-	return fmt.Sprintf("%s", song.link)
+	if *youtube {
+		return fmt.Sprintf("%s", song.link)
+	}
+	return fmt.Sprintf("%s - %s", song.Artist, song.Title)
 }
 
 func parseSong(body []byte) *Song {

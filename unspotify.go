@@ -7,11 +7,15 @@ import (
 	"net/http"
 )
 
+var youtube = flag.Bool("youtube", false, "output youtube link for the song")
+
 func Unspotify(link string) *Song {
 	body := get(spotifyinfo(link))
 	song := parseSong(body)
-	body = get(song.youtubesearch())
-	song.link = feelinglucky(body)
+	if *youtube {
+		body = get(song.youtubesearch())
+		song.link = feelinglucky(body)
+	}
 	return song
 }
 
